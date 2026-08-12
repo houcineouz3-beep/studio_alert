@@ -1,0 +1,56 @@
+name: Surveillance logements Fac-Habitat
+
+on:
+  schedule:
+    # toutes les 10 minutes (GitHub peut decaler de quelques minutes en cas de charge)
+    - cron: "*/10 * * * *"
+  workflow_dispatch:        # permet de lancer a la main depuis l'onglet Actions
+
+permissions:
+  contents: write           # necessaire pour reecrire state.json
+
+concurrency:
+  group: watcher
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Recuperer le depot
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
+      - name: Verifier les residences
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          SMTP_HOST:          ${{ secrets.SMTP_HOST }}
+          SMTP_PORT:          ${{ secrets.SMTP_PORT }}
+          SMTP_USER:          ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD:      ${{ secrets.SMTP_PASSWORD }}
+          MAIL_TO:            ${{ secrets.MAIL_TO }}
+        run: python check.py
+
+      - name: Sauvegarder l'etat
+        run: |
+          if [ -n "$(git status --porcelain state.json)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add state.json
+            git commit -m "etat: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase --autostash || true
+            git push
+          else
+            echo "Aucun changement d'etat a sauvegarder."
+          fi
