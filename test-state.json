@@ -1,0 +1,11 @@
+{
+  "https://logement.smerra.fr/residence-etudiante/logifac-saint-jacques/": {
+    "badge": "DISPONIBLE",
+    "fingerprint": "4a7dfcc35dc57090",
+    "last_alert": "2026-08-12T22:09:58+00:00",
+    "last_check": "2026-08-12T22:09:58+00:00",
+    "name": "Logifac Saint-Jacques",
+    "status": "DISPONIBLE",
+    "widget": "INDETERMINE"
+  }
+}
