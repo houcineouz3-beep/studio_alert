@@ -3,7 +3,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-08-28T16:50:04+00:00",
+    "last_check": "2026-08-29T00:44:30+00:00",
     "name": "Fac-Habitat Claude Monet - Noisy-le-Sec",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -12,7 +12,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-08-28T16:50:08+00:00",
+    "last_check": "2026-08-29T00:44:32+00:00",
     "name": "Fac-Habitat Alice Guy - Saint-Mande",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -21,7 +21,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-08-28T16:49:48+00:00",
+    "last_check": "2026-08-29T00:44:12+00:00",
     "name": "Fac-Habitat Carmagnole - La Courneuve",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -30,7 +30,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-08-28T16:49:45+00:00",
+    "last_check": "2026-08-29T00:44:09+00:00",
     "name": "Fac-Habitat Cesaria Evora - Aubervilliers",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -39,7 +39,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-08-28T16:50:10+00:00",
+    "last_check": "2026-08-29T00:44:36+00:00",
     "name": "Fac-Habitat Emergence - Bois-Colombes",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -48,7 +48,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-08-28T16:49:55+00:00",
+    "last_check": "2026-08-29T00:44:20+00:00",
     "name": "Fac-Habitat Gainsbourg - Saint-Denis",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -57,7 +57,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-08-28T16:49:51+00:00",
+    "last_check": "2026-08-29T00:44:14+00:00",
     "name": "Fac-Habitat La Boetie - Drancy",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -66,25 +66,25 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-08-28T16:49:53+00:00",
+    "last_check": "2026-08-29T00:44:18+00:00",
     "name": "Fac-Habitat Le Studio - Saint-Denis",
     "status": "COMPLET",
     "widget": "INDETERMINE"
   },
   "https://logement.smerra.fr/residence-etudiante/fac-habitat-lucie-aubrac/": {
-    "badge": "COMPLET",
+    "badge": "BIENTOT",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-08-28T16:49:41+00:00",
+    "last_check": "2026-08-29T00:44:06+00:00",
     "name": "Fac-Habitat Lucie Aubrac - Aubervilliers",
-    "status": "COMPLET",
+    "status": "BIENTOT",
     "widget": "INDETERMINE"
   },
   "https://logement.smerra.fr/residence-etudiante/fac-habitat-marne/": {
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-08-28T16:49:58+00:00",
+    "last_check": "2026-08-29T00:44:24+00:00",
     "name": "Fac-Habitat Marne - Paris 19e",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -93,7 +93,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-08-28T16:49:38+00:00",
+    "last_check": "2026-08-29T00:44:02+00:00",
     "name": "Fac-Habitat Philosophia - Aubervilliers",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -102,7 +102,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-08-28T16:50:01+00:00",
+    "last_check": "2026-08-29T00:44:27+00:00",
     "name": "Fac-Habitat Quai de la Loire - Paris 19e",
     "status": "COMPLET",
     "widget": "INDETERMINE"
