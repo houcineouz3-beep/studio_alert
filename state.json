@@ -3,7 +3,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-10-10T04:18:42+00:00",
+    "last_check": "2026-10-10T10:39:42+00:00",
     "name": "Fac-Habitat Claude Monet - Noisy-le-Sec",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -12,7 +12,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-10-10T04:18:46+00:00",
+    "last_check": "2026-10-10T10:39:46+00:00",
     "name": "Fac-Habitat Alice Guy - Saint-Mande",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -21,7 +21,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "2026-09-19T01:37:53+00:00",
-    "last_check": "2026-10-10T04:18:24+00:00",
+    "last_check": "2026-10-10T10:39:24+00:00",
     "name": "Fac-Habitat Carmagnole - La Courneuve",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -30,7 +30,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-10-10T04:18:20+00:00",
+    "last_check": "2026-10-10T10:39:20+00:00",
     "name": "Fac-Habitat Cesaria Evora - Aubervilliers",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -39,7 +39,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-10-10T04:18:49+00:00",
+    "last_check": "2026-10-10T10:39:48+00:00",
     "name": "Fac-Habitat Emergence - Bois-Colombes",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -48,43 +48,43 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-10-10T04:18:34+00:00",
+    "last_check": "2026-10-10T10:39:32+00:00",
     "name": "Fac-Habitat Gainsbourg - Saint-Denis",
     "status": "COMPLET",
     "widget": "INDETERMINE"
   },
   "https://logement.smerra.fr/residence-etudiante/fac-habitat-la-boetie/": {
-    "badge": "COMPLET",
+    "badge": "BIENTOT",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-10-10T04:18:27+00:00",
+    "last_check": "2026-10-10T10:39:26+00:00",
     "name": "Fac-Habitat La Boetie - Drancy",
-    "status": "COMPLET",
+    "status": "BIENTOT",
     "widget": "INDETERMINE"
   },
   "https://logement.smerra.fr/residence-etudiante/fac-habitat-le-studio/": {
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-10-10T04:18:30+00:00",
+    "last_check": "2026-10-10T10:39:30+00:00",
     "name": "Fac-Habitat Le Studio - Saint-Denis",
     "status": "COMPLET",
     "widget": "INDETERMINE"
   },
   "https://logement.smerra.fr/residence-etudiante/fac-habitat-lucie-aubrac/": {
-    "badge": "COMPLET",
+    "badge": "BIENTOT",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "2026-09-11T11:09:06+00:00",
-    "last_check": "2026-10-10T04:18:17+00:00",
+    "last_check": "2026-10-10T10:39:18+00:00",
     "name": "Fac-Habitat Lucie Aubrac - Aubervilliers",
-    "status": "COMPLET",
+    "status": "BIENTOT",
     "widget": "INDETERMINE"
   },
   "https://logement.smerra.fr/residence-etudiante/fac-habitat-marne/": {
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-10-10T04:18:37+00:00",
+    "last_check": "2026-10-10T10:39:35+00:00",
     "name": "Fac-Habitat Marne - Paris 19e",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -93,7 +93,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-10-10T04:18:15+00:00",
+    "last_check": "2026-10-10T10:39:14+00:00",
     "name": "Fac-Habitat Philosophia - Aubervilliers",
     "status": "COMPLET",
     "widget": "INDETERMINE"
@@ -102,7 +102,7 @@
     "badge": "COMPLET",
     "fingerprint": "4a7dfcc35dc57090",
     "last_alert": "",
-    "last_check": "2026-10-10T04:18:40+00:00",
+    "last_check": "2026-10-10T10:39:39+00:00",
     "name": "Fac-Habitat Quai de la Loire - Paris 19e",
     "status": "COMPLET",
     "widget": "INDETERMINE"
