@@ -49,13 +49,28 @@ jobs:
 
       - name: Sauvegarder l'etat
         run: |
-          if [ -n "$(git status --porcelain state.json)" ]; then
-            git config user.name  "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add state.json
-            git commit -m "etat: $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git pull --rebase --autostash || true
-            git push
-          else
+          if [ -z "$(git status --porcelain state.json)" ]; then
             echo "Aucun changement d'etat a sauvegarder."
+            exit 0
           fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp state.json "$RUNNER_TEMP/state.json"
+          # On se recale toujours sur la derniere version de main (un "Re-run"
+          # rejoue un ancien commit, et residences.json a pu etre modifie entre-temps),
+          # puis on y pose notre state.json : pas de rebase, donc pas de conflit.
+          for attempt in 1 2 3; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            cp "$RUNNER_TEMP/state.json" state.json
+            if [ -z "$(git status --porcelain state.json)" ]; then
+              echo "Etat deja a jour."
+              exit 0
+            fi
+            git add state.json
+            git commit -q -m "etat: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push -q origin HEAD:main && exit 0
+            echo "Push refuse (tentative $attempt), on recommence..."
+            sleep 5
+          done
+          exit 1
