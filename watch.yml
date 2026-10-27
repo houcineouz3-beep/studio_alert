@@ -5,6 +5,11 @@ on:
     # toutes les 10 minutes (GitHub peut decaler de quelques minutes en cas de charge)
     - cron: "*/10 * * * *"
   workflow_dispatch:        # permet de lancer a la main depuis l'onglet Actions
+    inputs:
+      test:
+        description: "Envoyer seulement une notification de test"
+        type: boolean
+        default: false
 
 permissions:
   contents: write           # necessaire pour reecrire state.json
@@ -40,7 +45,7 @@ jobs:
           SMTP_USER:          ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD:      ${{ secrets.SMTP_PASSWORD }}
           MAIL_TO:            ${{ secrets.MAIL_TO }}
-        run: python check.py
+        run: python check.py ${{ inputs.test && '--test' || '' }}
 
       - name: Sauvegarder l'etat
         run: |
