@@ -13,12 +13,15 @@ Deux signaux sont combinés pour chaque résidence :
    confondre avec les résidences suggérées en bas de page.
 2. **Le module de réservation** : la page contient une iframe vers
    `w2.fac-habitat.com/<Résidence>/p/.../version=iframe_reservation`. Le script la
-   récupère aussi et cherche des libellés du type *« Déposer une demande »*,
-   *« Réserver »*… ou au contraire *« Aucun logement disponible »*.
+   récupère et regarde l'**état du bouton** *« Déposer une demande »* de chaque type
+   de logement (T1, Duo…) : `<button disabled>` quand c'est complet, lien
+   `btn_reserver` / `DO_ADD_TO_CART` quand c'est ouvert. Le libellé est le même dans
+   les deux cas, il ne suffit donc pas de chercher le texte.
 
-L'état final vaut `DISPONIBLE` si **l'un des deux** signaux est au vert. Tu es
-prévenu uniquement lors du **passage** à `DISPONIBLE` — pas à chaque exécution.
-L'état précédent est mémorisé dans `state.json`.
+Quand le module a pu être lu, c'est lui qui fait foi (c'est lui qui porte le
+bouton) ; sinon on se rabat sur le badge. Tu es prévenu lors du **passage** à
+`DISPONIBLE`, ou quand un **nouveau type** de logement se libère — pas à chaque
+exécution. L'état précédent est mémorisé dans `state.json`.
 
 ---
 
@@ -162,8 +165,8 @@ Variables d'environnement facultatives :
 
 ## Si le site change
 
-Les libellés sont regroupés en haut de `check.py` (`STATUS_BADGES`, `BOOKING_YES`,
-`BOOKING_NO`). Si Smerra modifie ses textes, il suffit d'ajouter la nouvelle
+Les libellés sont regroupés en haut de `check.py` (`STATUS_BADGES`,
+`BOOKING_LINK_MARKERS`, `BOOKING_NO`). Si Smerra modifie ses textes, il suffit d'ajouter la nouvelle
 formulation dans ces listes. `python check.py --debug` affiche le badge et l'état du
 module détectés : c'est le moyen le plus rapide de voir ce qui coince. Et
 `test_logic.py` vérifie la logique sans toucher au réseau (`python test_logic.py`).

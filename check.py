@@ -116,20 +116,13 @@ STATUS_BADGES = (
     ("COMPLET", ("complet",)),
 )
 
-# Signes que le module de reservation propose vraiment quelque chose
-BOOKING_YES = (
-    "deposer une demande",
-    "deposer ma demande",
-    "faire une demande",
-    "je reserve",
-    "reserver ce logement",
-    "reserver mon logement",
-    "choisir ce logement",
-    "pre-reservation",
-    "prereservation",
-    "candidater",
-    "postuler",
-)
+# Dans l'iframe, chaque type de logement (T1, Duo...) a son bouton "Deposer une demande" :
+#   - complet    -> <button disabled ...>Deposer une demande</button>
+#   - disponible -> <a class="btn_reserver" href=".../DO_ADD_TO_CART/.../TYPE_LOGEMENT=T1/...">
+# Le texte est le meme dans les deux cas : seul l'etat du bouton compte.
+BOOKING_LINK_MARKERS = ("do_add_to_cart", "btn_reserver")
+BOOKING_LABEL = "deposer une demande"
+TYPE_RE = re.compile(r"TYPE_LOGEMENT=([^/&?]+)", re.I)
 # Signes explicites qu'il n'y a rien
 BOOKING_NO = (
     "aucun logement disponible",
@@ -172,17 +165,50 @@ def extract_badge(html: str) -> str:
 
 
 def find_booking_widget(html: str, base_url: str) -> str | None:
-    """Retrouve l'URL de l'iframe de reservation (w2.fac-habitat.com / w2.logifac.fr)."""
-    for raw in URL_RE.findall(html):
+    """Retrouve l'URL de l'iframe de reservation (w2.fac-habitat.com / w2.logifac.fr).
+
+    Attention : l'en-tete de chaque page contient aussi un lien "Mon compte"
+    vers w2.logifac.fr/account/... (identique pour toutes les residences) : on
+    cherche donc d'abord l'URL 'version=iframe_reservation'."""
+    urls = URL_RE.findall(html)
+    for raw in urls:
+        if "iframe_reservation" in raw.lower():
+            return urljoin(base_url, raw)
+    for raw in urls:
         low = raw.lower()
-        if (
-            "iframe_reservation" in low
-            or "w2.fac-habitat.com" in low
-            or "w2.logifac.fr" in low
-            or "espacelocataire" in low and "reservation" in low
-        ):
+        if ("w2.fac-habitat.com" in low or "w2.logifac.fr" in low) and "/account/" not in low:
             return urljoin(base_url, raw)
     return None
+
+
+def parse_widget(widget_html: str) -> tuple[str, list[str]]:
+    """Lit les boutons de l'iframe : renvoie (OUVERT|FERME|INDETERMINE, types dispo)."""
+    soup = BeautifulSoup(widget_html, "html.parser")
+    open_types: list[str] = []
+    open_count = closed_count = 0
+
+    for tag in soup.find_all(["a", "button"]):
+        label = flat(tag.get_text(" ", strip=True) or tag.get("title", ""))
+        href = tag.get("href", "")
+        classes = " ".join(tag.get("class", []))
+        is_link = any(m in (href + " " + classes).lower() for m in BOOKING_LINK_MARKERS)
+        if not is_link and BOOKING_LABEL not in label:
+            continue
+        if is_link and href and not tag.has_attr("disabled"):
+            open_count += 1
+            m = TYPE_RE.search(href)
+            kind = m.group(1).replace("+", " ") if m else "?"
+            if kind not in open_types:
+                open_types.append(kind)
+        else:
+            closed_count += 1
+
+    text = flat(soup.get_text(" ", strip=True))
+    if open_count:
+        return "OUVERT", open_types
+    if closed_count or any(n in text for n in BOOKING_NO):
+        return "FERME", []
+    return "INDETERMINE", []
 
 
 def fetch(url: str, session: requests.Session) -> str | None:
@@ -206,19 +232,20 @@ def analyse(page_html: str, widget_html: str | None) -> dict:
 
     widget_status = "ABSENT"
     fingerprint = ""
+    types: list[str] = []
     if widget_html:
         widget_text = flat(BeautifulSoup(widget_html, "html.parser").get_text(" ", strip=True))
         fingerprint = hashlib.sha256(widget_text.encode("utf-8")).hexdigest()[:16]
-        says_no = any(n in widget_text for n in BOOKING_NO)
-        says_yes = any(n in widget_text for n in BOOKING_YES)
-        if says_yes and not says_no:
-            widget_status = "OUVERT"
-        elif says_no:
-            widget_status = "FERME"
-        else:
-            widget_status = "INDETERMINE"
+        widget_status, types = parse_widget(widget_html)
 
-    available = badge == "DISPONIBLE" or widget_status == "OUVERT"
+    # Le module de reservation fait foi quand il a pu etre lu : c'est lui qui
+    # porte le bouton. Le badge de la page ne sert que s'il est illisible.
+    if widget_status == "OUVERT":
+        available = True
+    elif widget_status == "FERME":
+        available = False
+    else:
+        available = badge == "DISPONIBLE"
 
     if available:
         status = "DISPONIBLE"
@@ -234,6 +261,7 @@ def analyse(page_html: str, widget_html: str | None) -> dict:
         "available": available,
         "badge": badge,
         "widget": widget_status,
+        "types": types,
         "fingerprint": fingerprint,
     }
 
@@ -252,7 +280,7 @@ def check_residence(res: dict, session: requests.Session, debug: bool = False) -
 
     if debug:
         log(f"  debug -> badge={result['badge']} widget={result['widget']} "
-            f"iframe={widget_url or 'aucune'}")
+            f"types={','.join(result['types']) or '-'} iframe={widget_url or 'aucune'}")
     return result
 
 
@@ -369,9 +397,14 @@ def run_once(force: bool = False, debug: bool = False) -> int:
         prev = state.get(url, {})
         prev_status = prev.get("status")
         status = result["status"]
-        log(f"  -> etat : {status} (badge={result['badge']}, module={result['widget']})")
+        types = result["types"]
+        log(f"  -> etat : {status} (badge={result['badge']}, module={result['widget']}"
+            f"{', dispo : ' + ', '.join(types) if types else ''})")
 
-        became_available = status == "DISPONIBLE" and prev_status != "DISPONIBLE"
+        new_types = [t for t in types if t not in prev.get("types", [])]
+        became_available = status == "DISPONIBLE" and (
+            prev_status != "DISPONIBLE" or bool(new_types)
+        )
         changed = prev_status is not None and status != prev_status
         fp_changed = (
             ALERT_ON_FINGERPRINT
@@ -390,8 +423,10 @@ def run_once(force: bool = False, debug: bool = False) -> int:
             else:
                 title = f"ℹ️ {name} : {prev_status or 'inconnu'} → {status}"
 
-            lines = [
-                f"Etat : <b>{status}</b>",
+            lines = [f"Etat : <b>{status}</b>"]
+            if types:
+                lines.append(f"Logements dispo : <b>{', '.join(types)}</b>")
+            lines += [
                 f"Badge du site : {result['badge']}",
                 f"Module de reservation : {result['widget']}",
                 f"Verifie le {datetime.now().strftime('%d/%m/%Y a %H:%M')}",
@@ -406,6 +441,7 @@ def run_once(force: bool = False, debug: bool = False) -> int:
             "status": status,
             "badge": result["badge"],
             "widget": result["widget"],
+            "types": types,
             "fingerprint": result["fingerprint"],
             "last_check": now_iso(),
             "last_alert": now_iso() if must_alert else prev.get("last_alert", ""),
