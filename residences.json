@@ -1,8 +1,26 @@
 [
-  { "name": "Fac-Habitat Pablo Picasso - Nanterre", "url": "https://logement.smerra.fr/residence-etudiante/fac-habitat-pablo-picasso/", "a_partir_de": "329 €" },
-  { "name": "Fac-Habitat Gainsbourg - Saint-Denis", "url": "https://logement.smerra.fr/residence-etudiante/fac-habitat-gainsbourg/", "a_partir_de": "404 €" },
-  { "name": "Fac-Habitat Hortense Wild - Chatillon", "url": "https://logement.smerra.fr/residence-etudiante/fac-habitat-hortense-wild/", "a_partir_de": "467 €" },
-  { "name": "Fac-Habitat Le Studio - Saint-Denis", "url": "https://logement.smerra.fr/residence-etudiante/fac-habitat-le-studio/", "a_partir_de": "477 €" },
-  { "name": "Fac-Habitat Philosophia - Aubervilliers", "url": "https://logement.smerra.fr/residence-etudiante/fac-habitat-philosophia/", "a_partir_de": "491 €" },
-  { "name": "Fac-Habitat Carmagnole - La Courneuve", "url": "https://logement.smerra.fr/residence-etudiante/fac-habitat-carmagnole/", "a_partir_de": "492 €" }
+  {
+    "name": "Fac-Habitat Pablo Picasso - Nanterre",
+    "url": "https://logement.smerra.fr/residence-etudiante/fac-habitat-pablo-picasso/"
+  },
+  {
+    "name": "Fac-Habitat Hortense Wild - Chatillon",
+    "url": "https://logement.smerra.fr/residence-etudiante/fac-habitat-hortense-wild/"
+  },
+  {
+    "name": "Fac-Habitat Philosophia - Aubervilliers",
+    "url": "https://logement.smerra.fr/residence-etudiante/fac-habitat-philosophia/"
+  },
+  {
+    "name": "Fac-Habitat Carmagnole - La Courneuve",
+    "url": "https://logement.smerra.fr/residence-etudiante/fac-habitat-carmagnole/"
+  },
+  {
+    "name": "Fac-Habitat Le Studio - Saint-Denis",
+    "url": "https://logement.smerra.fr/residence-etudiante/fac-habitat-le-studio/"
+  },
+  {
+    "name": "Fac-Habitat Gainsbourg - Saint-Denis",
+    "url": "https://logement.smerra.fr/residence-etudiante/fac-habitat-gainsbourg/"
+  }
 ]
